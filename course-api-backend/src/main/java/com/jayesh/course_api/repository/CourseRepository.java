@@ -5,4 +5,5 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
 public interface CourseInstanceRepository extends JpaRepository<CourseInstance, Long> {
     List<CourseInstance> findByYearAndSemester(int year, int semester);
+    // ...existing code...
 }
