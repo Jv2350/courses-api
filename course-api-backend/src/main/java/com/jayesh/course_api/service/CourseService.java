@@ -11,8 +11,8 @@ public class CourseService {
         return courseRepo.save(course);
     }
 
-    public void deleteCourse(Long id) {
-        Course course = courseRepo.findById(id).orElseThrow();
+    public void deleteCourseByCourseId(String courseId) {
+        Course course = courseRepo.findByCourseId(courseId).orElseThrow();
         if (courseRepo.existsByPrerequisitesContaining(course)) {
             throw new RuntimeException("Cannot delete. Used as prerequisite.");
         }

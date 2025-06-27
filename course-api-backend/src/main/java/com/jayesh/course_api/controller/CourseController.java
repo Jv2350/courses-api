@@ -18,15 +18,17 @@ public class CourseController {
         return courseRepo.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Course one(@PathVariable Long id) {
-        return courseRepo.findById(id).orElseThrow();
+    @GetMapping("/{courseId}")
+    public ResponseEntity<?> one(@PathVariable String courseId) {
+        return courseRepo.findByCourseId(courseId)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
+    @DeleteMapping("/{courseId}")
+    public ResponseEntity<?> delete(@PathVariable String courseId) {
         try {
-            courseService.deleteCourse(id);
+            courseService.deleteCourseByCourseId(courseId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(409).body(e.getMessage());
